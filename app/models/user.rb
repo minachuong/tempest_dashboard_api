@@ -1,3 +1,4 @@
 class User < ApplicationRecord
-  validates :source_id, presence: true, uniqueness: true
+  validates :first_name, :last_name, :avatar_url, presence: true
+  has_many :metric_events
 end

@@ -25,4 +25,8 @@
 ```
 
 
+## Seed Data
+Used konbert.com to convert json into sql for event data --> Metric Event (there were conflicts created with trying to create an Event class)
+created_at and updated_at used time as source for these columns
+
 
