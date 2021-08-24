@@ -1,14 +1,14 @@
-# Dashboard API
+# Insights Dashboard API
 
 - All dates from payloads are in ISO-8601 date format in UTC
 
-## GET /insights/summaries
+## GET /api/v1/insights/summaries
 - Use case: data to user profile and aggregate data (e.g. total revenue, total conversions, total impressions over all of time)
 - No Auth Required
 - Does not support pagination, you get ALL of it
 - Each insight is specific to a user and their metric events
 - `date_start` and `date_end` are first and last dates when a user made a conversion
-- A 200OK payload looks like this:
+- A 200OK JSON payload looks like this:
 ```
 [
   {
@@ -26,19 +26,25 @@
 ]
 ```
 
-## GET /insights/dailyconversions/:user_id
+## GET /insights/dailyconversions?userId=:user_id
 - Use case: data to display daily conversions by date for one user
 - No Auth Required
 - Does not support pagination, you get ALL of it
 - `daily_conversions` is the total number of conversions that a user made with the associated date
 - This payload does not include dates where the user made no conversions
-- Date has no timezone! :D
-- A 200OK payload generally looks like this:
+- Date has no timezone (so it's defaulting to UTC)! :D
+- A 200OK JSON payload looks like this:
 ```
 [
-  {
-    daily_conversions: 0,
-    date: ""
+  { 
+    user_id: 0,
+    conversions: [  
+      {
+        daily_conversions: 0,
+        date: ""
+      },
+      ...
+    ]
   },
   ...
 ]
@@ -54,8 +60,8 @@ X design/implement endpoints
 X write spec for endpoints
 - implement card component
 - decide which chart library to use
-- implement chart component
 - write tests for card component
+- implement chart component
 - Documentation
 
 ### Many thanks to:

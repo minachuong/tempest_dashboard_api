@@ -4,10 +4,10 @@ class InsightsController < ApplicationController
     render :json => insightsService.select_insights
   end
 
-  def daily_conversions_by_user_id 
+  def get_daily_conversions 
     insightsService = InsightsService.new
     # TODO: whitelist params here?
-    render :json => insightsService.select_daily_conversions_by_user_id(params[:user_id])
+    user_id = params[:userId]
+    render :json => insightsService.select_daily_conversions(params[:userId])
   end
-
 end
