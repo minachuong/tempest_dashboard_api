@@ -1,32 +1,63 @@
 # Dashboard API
 
-## GET /insights
+- All dates from payloads are in ISO-8601 date format in UTC
+
+## GET /insights/summaries
+- Use case: data to user profile and aggregate data (e.g. total revenue, total conversions, total impressions over all of time)
 - No Auth Required
 - Does not support pagination, you get ALL of it
-- Each insight is specific to a user and their metrics
-
+- Each insight is specific to a user and their metric events
+- `date_start` and `date_end` are first and last dates when a user made a conversion
+- A 200OK payload looks like this:
 ```
 [
   {
     first_name: "",
-    middle_name: "",
     last_name: "",
     occupation: "",
+    avatar_url: "",
     total_impressions: 0,
     total_revenue: 0,
-    conversions: {
-      total: 0,
-      date_start: "",
-      date_end: ""
-    }
+    total_conversions: 0,
+    date_start: "",
+    date_end: ""
   },
   ...
 ]
 ```
 
+## GET /insights/dailyconversions/:user_id
+- Use case: data to display daily conversions by date for one user
+- No Auth Required
+- Does not support pagination, you get ALL of it
+- `daily_conversions` is the total number of conversions that a user made with the associated date
+- This payload does not include dates where the user made no conversions
+- Date has no timezone! :D
+- A 200OK payload generally looks like this:
+```
+[
+  {
+    daily_conversions: 0,
+    date: ""
+  },
+  ...
+]
+```
+- If the user does not exist or the user does not have any conversions, a response of 200OK with `[]` will be given.
 
-## Seed Data
-Used konbert.com to convert json into sql for event data --> Metric Event (there were conflicts created with trying to create an Event class)
-created_at and updated_at used time as source for these columns
 
+
+## Tasks
+X build db schema
+X implement seed script
+X design/implement endpoints
+X write spec for endpoints
+- implement card component
+- decide which chart library to use
+- implement chart component
+- write tests for card component
+- Documentation
+
+### Many thanks to:
+- konbert.com
 

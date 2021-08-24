@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(version: 2021_08_21_010258) do
     t.string "first_name"
     t.string "last_name"
     t.string "avatar_url"
-    t.integer "source_id"
     t.string "occupation"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

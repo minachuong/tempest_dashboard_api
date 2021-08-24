@@ -12,16 +12,12 @@ def load_users
   users = sorted_user_data.each_with_index { |user, index| 
     first_name, last_name = user["name"].split(" ", 2)
 
-    User.create!(
-      first_name: first_name,
-      last_name: last_name,
-      avatar_url: user["avatar"],
-      occupation: user["occupation"],
-    )
+    User.create!(first_name: first_name, last_name: last_name, avatar_url: user["avatar"], occupation: user["occupation"])
     # p user["id"] == index + 1 # simple test to ensure the source data did not skip user id's
   }
 end
 
+p "loading user data..."
 load_users
 p "user data loaded!"
 
@@ -34,7 +30,17 @@ p "loading metric event data ..."
 execute_sql_file('./db/event_data_load_01.sql')
 p "metric event data loaded!"
 
+def verify_seed_data 
+  p "verifying metric event data ..."
+  result = execute_sql_file('./db/data_verification.sql')
+  if result.count > 0 
+    p "There are #{result.count} invalid records" 
+  else 
+    p "Seed data is squeaky clean"
+  end
+end
 
+verify_seed_data
 
 
 
