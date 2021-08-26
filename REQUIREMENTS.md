@@ -37,15 +37,3 @@ This file contains event data. Each item has a type (either 'impression' or 'con
   * Each card should display a simple chart of conversions per day.
 * The data that drives this frontend application should come from the Rails backend and database, not from the JSON data.
 * The entire solution should be self-contained and runnable from scratch by members of the Tempest team, once you return your solution (include any shell scripts, rake tasks, list of commands to run - whatever it takes for someone to spin everything up and inspect the running applications, in addition to the code).
-
-
-
-- 1hr to build db schema
-- 1hr to implement seed script
-- 1hr to design/implement endpoint
-- .5hr to create spec for endpoint
-- 1hr to implement card component
-- 1hr to decide which chart library to use
-- 1hr to implement chart component
-- 1hr to create tests for card component
-- Documentation
