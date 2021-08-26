@@ -2,6 +2,7 @@ class InsightsService
   def select_insights 
     sql = "
 SELECT 
+  u.id AS user_id,
   u.first_name, 
   u.last_name, 
   u.occupation, 
@@ -16,20 +17,8 @@ INNER JOIN users AS u ON u.id=me.user_id
 GROUP BY u.id"
 
     results = execute_sql(sql)
+    map_summary_results_to_insight_summaries results
   end
-
-#   def select_daily_conversions_by_user_id user_id
-#     sql = "
-# SELECT 
-#   COUNT(*) AS daily_conversions,
-#   (SELECT DATE_TRUNC('day', time) AS day) date
-# FROM metric_events
-# WHERE event_type = 'conversion' AND user_id=#{user_id}
-# GROUP BY date
-# ORDER BY date"
-
-#     results = execute_sql(sql)
-#   end
 
   def select_daily_conversions user_id
     user_id_filter = user_id == nil ? "" :  "AND user_id=#{user_id}"
@@ -44,7 +33,7 @@ GROUP BY user_id, date
 ORDER BY user_id, date"
 
     results = execute_sql(sql)
-    map_to_user_conversions results
+    map_conversion_results_to_user_conversions results
   end
 
   private
@@ -52,7 +41,7 @@ ORDER BY user_id, date"
     ActiveRecord::Base.connection.execute(sql)
   end
 
-  def map_to_user_conversions results
+  def map_conversion_results_to_user_conversions results
     user_conversions = []
     previous_user_id = nil
 
@@ -77,5 +66,25 @@ ORDER BY user_id, date"
     end
     
     return user_conversions
+  end
+
+  def map_summary_results_to_insight_summaries results
+    results.map do |result| 
+      { 
+        user: 
+          {
+            id: result["user_id"],
+            first_name: result["first_name"],
+            last_name: result["last_name"],
+            occupation: result["occupation"],
+            avatar_url: result["avatar_url"]
+          },
+        total_conversions: result["total_conversions"],
+        total_impressions: result["total_impressions"],
+        total_revenue: result["total_revenue"],
+        date_start: result["date_start"],
+        date_end: result["date_end"]
+      }
+    end
   end
 end

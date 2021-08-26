@@ -12,10 +12,13 @@
 ```
 [
   {
-    first_name: "",
-    last_name: "",
-    occupation: "",
-    avatar_url: "",
+    user: {
+      id: 0,
+      first_name: "",
+      last_name: "",
+      occupation: "",
+      avatar_url: ""
+    }
     total_impressions: 0,
     total_revenue: 0,
     total_conversions: 0,
@@ -52,13 +55,12 @@
 - If the user does not exist or the user does not have any conversions, a response of 200OK with `[]` will be given.
 
 
-
 ## Tasks
 X build db schema
 X implement seed script
 X design/implement endpoints
 X write spec for endpoints
-- implement card component
+X implement card component
 - decide which chart library to use
 - write tests for card component
 - implement chart component
