@@ -56,14 +56,10 @@
 
 
 ## Tasks
-X build db schema
-X implement seed script
-X design/implement endpoints
-X write spec for endpoints
-X implement card component
-- decide which chart library to use
-- write tests for card component
-- implement chart component
+- X build db schema
+- X implement seed script
+- X design/implement endpoints
+- X write spec for endpoints
 - Documentation
 
 ### Many thanks to:
